@@ -21,6 +21,9 @@ class ASA(object):
         self.timeout = timeout
         self.cred = HTTPBasicAuth(self.username, self.password)
 
+    ######################################################################
+    # General Functions
+    ######################################################################
     def _delete(self, request):
         url = 'https://' + self.device + '/api/' + request
         data = requests.delete(url,headers=HEADERS,auth=self.cred, verify=self.verify_cert, timeout=self.timeout)
@@ -49,7 +52,9 @@ class ASA(object):
         data = requests.put(url, data=json.dumps(data), headers=HEADERS, auth=self.cred, verify=self.verify_cert, timeout=self.timeout)
         return data
 
-
+    ######################################################################
+    # Unsorted functions
+    ######################################################################
     def get_access_in(self):
         request = 'access/in'
         return self._get(request)
@@ -66,7 +71,15 @@ class ASA(object):
         request = 'objects/localusers'
         return self._get(request)
 
-    # Network objects
+    ######################################################################
+    # <OBJECTS>
+    ######################################################################
+    # Functions related to network objects, or "object network" in the
+    # ASA configuration
+    ######################################################################
+    def create_networkobject(self, data):
+        request = 'objects/networkobjects'
+        return self._post(request, data)
 
     def delete_networkobject(self, net_object):
         request = 'objects/networkobjects/' + net_object
@@ -84,24 +97,51 @@ class ASA(object):
         request = 'objects/networkobjects/' + name
         return self._put(request, data)
 
-    def set_networkobject(self, data):
-        request = 'objects/networkobjects'
+    ######################################################################
+    # Functions related to network object-groups, or
+    # "object-group network" in the ASA configuration
+    ######################################################################
+
+    def add_member_networkobjectgroup(self, net_object, member_data):
+        request = 'objects/networkobjectgroups/' + net_object
+        data = {}
+        data['members.add'] = member_data
+        return self._patch(request, data)
+
+    def create_networkobjectgroup(self, data):
+        request = 'objects/networkobjectgroups'
         return self._post(request, data)
 
-    # Network object-groups
+    def delete_networkobjectgroup(self, net_object):
+        request = 'objects/networkobjectgroups/' + net_object
+        return self._delete(request)
+
+    def get_networkobjectgroup(self, net_object):
+        request = 'objects/networkobjectgroups/' + net_object
+        return self._get(request)
+
     def get_networkobjectgroups(self):
         request = 'objects/networkobjectgroups'
         return self._get(request)
 
-    def set_networkobjectgroup(self, data):
-        request = 'objects/networkobjectgroups'
-        return self._post(request, data)
+    def remove_member_networkobjectgroup(self, net_object, member_data):
+        request = 'objects/networkobjectgroups/' + net_object
+        data = {}
+        data['members.remove'] = member_data
+        return self._patch(request, data)
 
     def replace_networkobjectgroup(self, group, data):
         request = 'objects/networkobjectgroups/' + group
         return self._patch(request, data)
+    ######################################################################
+    # </OBJECTS>
+    ######################################################################
 
+
+    ######################################################################
+    # Functions related to specific commands
+    ######################################################################
     def write_mem(self):
-        request = '/api/commands/writemem'
+        request = 'commands/writemem'
         return self._post(request)
 
