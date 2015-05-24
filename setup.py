@@ -1,13 +1,20 @@
-from rasa import __version__
-from rasa import __author__
+
 from setuptools import setup
+
+version = ''
+with open('rasa/__init__.py', 'r') as fd:
+    version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
+                        fd.read(), re.MULTILINE).group(1)
+
+if not version:
+    raise RuntimeError('Cannot find version information')
 
 config = {
     'name': 'rasa',
     'packages': ['rasa'],
-    'version': __version__,
+    'version': version,
     'description': 'A wrapper Cisco ASA REST API',
-    'author': __author__,
+    'author': 'Patrick Ogenstad',
     'author_email': 'patrick@ogenstad.com',
     'license': 'Apache',
     'url': 'http://networklore.com/rasa/',

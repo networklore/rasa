@@ -1,3 +1,17 @@
+# Copyright 2015 Patrick Ogenstad <patrick@ogenstad.com>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import json
 
 import requests
@@ -133,6 +147,37 @@ class ASA(object):
     def replace_networkobjectgroup(self, group, data):
         request = 'objects/networkobjectgroups/' + group
         return self._patch(request, data)
+
+    def update_networkobjectgroup(self, net_object, data):
+        request = 'objects/networkobjectgroups/' + net_object
+        return self._patch(request, data)
+
+
+    ######################################################################
+    # Functions related to service objects, or "object service" in the
+    # ASA configuration
+    ######################################################################
+    def create_serviceobject(self, data):
+        request = 'objects/networkservices'
+        return self._post(request, data)
+
+    def delete_serviceobject(self, svc_object):
+        request = 'objects/networkservices/' + svc_object
+        return self._delete(request)
+
+    def get_serviceobject(self, svc_object):
+        request = 'objects/networkservices/' + svc_object
+        return self._get(request)
+
+    def get_serviceobjects(self):
+        request = 'objects/networkservices'
+        return self._get(request)
+
+    def replace_serviceobject(self, name, data):
+        request = 'objects/networkservices/' + name
+        return self._put(request, data)
+
+
     ######################################################################
     # </OBJECTS>
     ######################################################################
