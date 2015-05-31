@@ -107,7 +107,7 @@ class ASA(object):
         request = 'objects/networkobjects'
         return self._get(request)
 
-    def replace_networkobject(self, name, data):
+    def update_networkobject(self, name, data):
         request = 'objects/networkobjects/' + name
         return self._put(request, data)
 
@@ -144,10 +144,6 @@ class ASA(object):
         data['members.remove'] = member_data
         return self._patch(request, data)
 
-    def replace_networkobjectgroup(self, group, data):
-        request = 'objects/networkobjectgroups/' + group
-        return self._patch(request, data)
-
     def update_networkobjectgroup(self, net_object, data):
         request = 'objects/networkobjectgroups/' + net_object
         return self._patch(request, data)
@@ -173,9 +169,9 @@ class ASA(object):
         request = 'objects/networkservices'
         return self._get(request)
 
-    def replace_serviceobject(self, name, data):
+    def update_serviceobject(self, name, data):
         request = 'objects/networkservices/' + name
-        return self._put(request, data)
+        return self._patch(request, data)
 
 
     ######################################################################
