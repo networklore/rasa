@@ -1,5 +1,6 @@
 import re
 
+from codecs import open
 from setuptools import setup
 
 version = ''
@@ -10,11 +11,18 @@ with open('rasa/__init__.py', 'r') as fd:
 if not version:
     raise RuntimeError('Cannot find version information')
 
+with open('HISTORY.rst', 'r', 'utf-8') as f:
+    history = f.read()
+
+
+long_description = history
+
 config = {
     'name': 'rasa',
     'packages': ['rasa'],
     'version': version,
     'description': 'A wrapper Cisco ASA REST API',
+    'long_description': long_description,
     'author': 'Patrick Ogenstad',
     'author_email': 'patrick@ogenstad.com',
     'license': 'Apache',
@@ -26,4 +34,3 @@ config = {
 }
 
 setup(**config)
-
