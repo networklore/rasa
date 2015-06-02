@@ -183,6 +183,8 @@ class ASA(object):
     # Functions related to specific commands
     ######################################################################
     def write_mem(self):
+        """Saves the running configuration to memory
+        """
         request = 'commands/writemem'
         return self._post(request)
 
