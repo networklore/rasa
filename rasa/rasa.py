@@ -107,9 +107,15 @@ class ASA(object):
         request = 'objects/networkobjects'
         return self._get(request)
 
+    #def get_networkservices(self):
+    #    request = 'objects/predefinednetworkservices'
+    #    return self._get(request)
+
     def update_networkobject(self, name, data):
         request = 'objects/networkobjects/' + name
         return self._put(request, data)
+
+
 
     ######################################################################
     # Functions related to network object-groups, or
@@ -178,6 +184,25 @@ class ASA(object):
     # </OBJECTS>
     ######################################################################
 
+    ######################################################################
+    # <VPN>
+    ######################################################################
+    # Functions related to network objects, or "object network" in the
+    # ASA configuration
+    ######################################################################
+
+    def get_ikev1_policies(self):
+        request = 'vpn/ikev1policy'
+        return self._get(request)
+
+    def get_ikev1_policy(self, policy):
+        request = 'vpn/ikev1policy/' + policy
+        return self._get(request)
+
+
+    ######################################################################
+    # </VPN>
+    ######################################################################
 
     ######################################################################
     # Functions related to specific commands
