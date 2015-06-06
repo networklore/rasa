@@ -191,6 +191,14 @@ class ASA(object):
     # ASA configuration
     ######################################################################
 
+    def create_ikev1_policy(self, data):
+        request = 'vpn/ikev1policy'
+        return self._post(request, data)
+
+    def delete_ikev1_policy(self, policy):
+        request = 'vpn/ikev1policy/' + policy
+        return self._delete(request)
+
     def get_ikev1_policies(self):
         request = 'vpn/ikev1policy'
         return self._get(request)
@@ -198,6 +206,10 @@ class ASA(object):
     def get_ikev1_policy(self, policy):
         request = 'vpn/ikev1policy/' + policy
         return self._get(request)
+
+    def update_ikev1_policy(self, policy, data):
+        request = 'vpn/ikev1policy/' + policy
+        return self._patch(request, data)
 
 
     ######################################################################
