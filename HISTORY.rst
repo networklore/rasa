@@ -3,11 +3,14 @@
 Release History
 ---------------
 
-0.0.5 (2015-06-xx)
+0.0.5 (2015-06-06)
 ++++++++++++++++++
 
+* Added create_ikev1_policies()
+* Added delete_ikev1_policy()
 * Added get_ikev1_policies()
 * Added get_ikev1_policy()
+* Added update_ikev1_policy()
 
 
 0.0.4 (2015-06-02)
